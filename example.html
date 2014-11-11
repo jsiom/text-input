@@ -1,0 +1,19 @@
+<title>text-input example</title>
+<script>
+  var Input = require('./')
+  var App = require('app')
+  var data = localStorage.getItem('a') || 'Change me!'
+  var app = new App(data, function(state){
+    return new Input(state, {
+      isfocused: true,
+      onSubmit: function(value){
+        document.body.appendChild(document.createTextNode(value))
+        this.cursor.update('')
+      },
+      onCancel: function(){ console.log('cancel') }
+    })
+  })
+  app.atom.addListener(function(value){
+    localStorage.setItem('a', value)
+  })
+</script>

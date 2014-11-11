@@ -1,0 +1,17 @@
+{
+  "name": "text-input",
+  "version": "0.1.0",
+  "description": "A text-input component",
+  "keywords": ["virtual-dom"],
+  "dependencies": {
+    "create": "jsiom/create"
+  },
+  "devDependencies": {
+    "serve": "jkroso/serve",
+    "app": "jsiom/app"
+  },
+  "repository": "git://github.com/jsiom/text-input.git",
+  "author": "Jake Rosoman",
+  "files": ["index.js"],
+  "license": "MIT"
+}
