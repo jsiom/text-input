@@ -21,7 +21,7 @@ function handleSubmit(event){
 }
 
 function updateCursor(event){
-  if (event.which == 13/*enter*/) return
+  if (!event.charCode || event.which == 13/*enter*/) return
   var char = String.fromCharCode(event.charCode)
   return this.cursor.update(event.target.value + char)
 }
