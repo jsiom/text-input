@@ -1,11 +1,20 @@
 <title>text-input example</title>
+<style>
+  input {
+    font-size: 30px;
+    display: block;
+    padding: 20px;
+    margin: auto;
+  }
+</style>
 <script>
   var Input = require('./')
   var App = require('app')
-  var data = localStorage.getItem('a') || 'Change me!'
+  var data = localStorage.getItem('a') || ''
   var app = new App(data, function(state){
     return new Input(state, {
-      isfocused: true,
+      autofocus: true,
+      placeholder: 'Change me',
       onSubmit: function(value){
         document.body.appendChild(document.createTextNode(value))
         this.cursor.update('')
