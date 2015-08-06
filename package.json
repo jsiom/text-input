@@ -4,11 +4,14 @@
   "description": "A text-input component",
   "keywords": ["virtual-dom"],
   "dependencies": {
-    "create": "jsiom/create"
+    "mana": "jkroso/mana",
+    "babelify": "*"
   },
   "devDependencies": {
-    "serve": "jkroso/serve",
-    "app": "jsiom/app"
+    "serve": "jkroso/serve"
+  },
+  "browserify": {
+    "transform": [["babelify", {"jsxPragma": "JSX"}]]
   },
   "repository": "git://github.com/jsiom/text-input.git",
   "author": "Jake Rosoman",

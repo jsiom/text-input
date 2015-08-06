@@ -9,18 +9,20 @@
 </style>
 <script>
   var Input = require('./')
-  var App = require('app')
+  var App = require('mana/app')
+  var JSX = require('mana').JSX
   var data = localStorage.getItem('a') || ''
-  var app = new App(data, function(state){
-    return new Input(state, {
+  var app = new App(data, function(cursor){
+    return JSX('body', null, Input({
+      cursor: cursor,
       autofocus: true,
       placeholder: 'Change me',
       onSubmit: function(value){
         document.body.appendChild(document.createTextNode(value))
-        this.cursor.update('')
+        cursor.update('')
       },
       onCancel: function(){ console.log('cancel') }
-    })
+    }))
   })
   app.atom.addListener(function(value){
     localStorage.setItem('a', value)

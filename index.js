@@ -1,26 +1,28 @@
-var merge = require('create/merge-props')
-var VirtualNode = require('create/node')
+const {JSX} = require('mana')
 
-function TextInput(cursor, props) {
-  if (!(this instanceof TextInput)) return new TextInput(cursor, props)
-  this.cursor = cursor
-  this.properties = {value: cursor.value}
-  this.events = {keydown: keydown, keyup: keyup}
-  merge(this, props)
+function onKeydown(e) {
+  if (e.which == 13/*enter*/) this.emit('submit', this.dom.value)
+  if (e.which == 27/*esc*/) this.emit('cancel')
 }
 
-TextInput.prototype = Object.create(VirtualNode.prototype, {
-  constructor: {value: TextInput},
-  tagName: {value: 'input'}
-})
-
-function keydown(event) {
-  if (event.which == 13/*enter*/) this.emit('submit', event.target.value)
-  if (event.which == 27/*esc*/) this.emit('cancel')
+function onKeyup() {
+  if (this.params.cursor.isCurrent) {
+    this.params.cursor.update(this.dom.value)
+  }
 }
 
-function keyup(event) {
-  this.cursor.isCurrent && this.cursor.update(event.target.value)
-}
+/**
+ * A simple text input box
+ *
+ * @type {Object} the only required parameter is `curser`
+ * @return {VirtualElement}
+ */
 
-module.exports = TextInput
+const TextInput = params =>
+  <input type='text'
+         onKeyup={onKeyup}
+         onKeydown={onKeydown}
+         value={params.cursor.value}
+         {...params}/>
+
+export default TextInput
