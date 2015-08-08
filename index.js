@@ -1,14 +1,22 @@
 const {JSX} = require('mana')
 
-function onKeydown(e) {
-  if (e.which == 13/*enter*/) this.emit('submit', this.dom.value)
-  if (e.which == 27/*esc*/) this.emit('cancel')
+const onKeydown = (e, node) => {
+  if (e.which == 13/*enter*/) node.emit('submit', node.dom.value)
+  if (e.which == 27/*esc*/) node.emit('cancel')
 }
 
-function onKeyup() {
-  if (this.params.cursor.isCurrent) {
-    this.params.cursor.update(this.dom.value)
-  }
+const onKeyup = (e, node) => {
+  const oldValue = node.params.value
+  const newValue = node.dom.value
+  if (oldValue == newValue) return
+  node.params.cursor.update(newValue)
+  node.emit('change', newValue)
+}
+
+const killEvent = e => {
+  if (typeof e == 'string') return // internally generated event
+  e.stopPropagation()
+  e.preventDefault()
 }
 
 /**
@@ -22,7 +30,8 @@ const TextInput = params =>
   <input type='text'
          onKeyup={onKeyup}
          onKeydown={onKeydown}
-         value={params.cursor.value}
-         {...params}/>
+         onChange={killEvent}
+         value={params.cursor.value || ''}
+  />.mergeParams(params)
 
 export default TextInput
