@@ -9,7 +9,7 @@ const onKeyup = (e, node) => {
   const oldValue = node.params.value
   const newValue = node.dom.value
   if (oldValue == newValue) return
-  node.params.cursor.update(newValue)
+  node.params.cursor.value = newValue
   node.emit('change', newValue)
 }
 
@@ -22,16 +22,16 @@ const killEvent = e => {
 /**
  * A simple text input box
  *
- * @type {Object} the only required parameter is `curser`
+ * @type {Object} the only required parameter is `cursor`
  * @return {VirtualElement}
  */
 
-const TextInput = params =>
+const TextInput = ({cursor, ...rest}) =>
   <input type='text'
          onKeyup={onKeyup}
          onKeydown={onKeydown}
          onChange={killEvent}
-         value={params.cursor.value || ''}
-  />.mergeParams(params)
+         value={cursor.value || ''}
+         {...rest}/>
 
 export default TextInput
