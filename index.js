@@ -26,12 +26,11 @@ const killEvent = e => {
  * @return {VirtualElement}
  */
 
-const TextInput = ({cursor, ...rest}) =>
+const TextInput = params =>
   <input type='text'
          onKeyup={onKeyup}
          onKeydown={onKeydown}
          onChange={killEvent}
-         value={cursor.value || ''}
-         {...rest}/>
+         value={params.cursor.value || ''}/>.mergeParams(params)
 
 export default TextInput
