@@ -1,16 +1,16 @@
 const {JSX} = require('mana')
 
-const onKeydown = (e, node) => {
-  if (e.which == 13/*enter*/) node.emit('submit', node.dom.value)
-  if (e.which == 27/*esc*/) node.emit('cancel')
+const onKeydown = (e, node, dom) => {
+  if (e.which == 13/*enter*/) node.emit('submit', dom, dom.value)
+  if (e.which == 27/*esc*/) node.emit('cancel', dom)
 }
 
-const onKeyup = (e, node) => {
+const onKeyup = (e, node, dom) => {
   const oldValue = node.params.value
-  const newValue = node.dom.value
+  const newValue = dom.value
   if (oldValue == newValue) return
   node.params.cursor.value = newValue
-  node.emit('change', newValue)
+  node.emit('change', dom, newValue)
 }
 
 const killEvent = e => {
