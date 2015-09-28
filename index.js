@@ -13,7 +13,7 @@ const onKeyup = (e, node, dom) => {
   node.emit('change', dom, newValue)
 }
 
-const killEvent = e => {
+const onChange = e => {
   if (typeof e == 'string') return // internally generated event
   e.stopPropagation()
   e.preventDefault()
@@ -26,11 +26,14 @@ const killEvent = e => {
  * @return {VirtualElement}
  */
 
-const TextInput = params =>
-  <input type='text'
-         onKeyup={onKeyup}
-         onKeydown={onKeydown}
-         onChange={killEvent}
-         value={params.cursor.value || ''}/>.mergeParams(params)
+const TextInput = params => {
+  const value = params.cursor.value || ''
+  return <input type='text'
+                size={(value || params.placeholder || '').length}
+                onKeyup
+                onKeydown
+                onChange
+                value/>.mergeParams(params)
+}
 
 export default TextInput
