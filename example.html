@@ -1,4 +1,5 @@
 <title>text-input example</title>
+<link rel="stylesheet" href="style.css"/>
 <style>
   input {
     font-size: 30px;
@@ -8,23 +9,20 @@
   }
 </style>
 <script>
-  var Input = require('./')
-  var App = require('mana/app')
-  var JSX = require('mana').JSX
-  var data = localStorage.getItem('a') || ''
-  var app = new App(data, function(cursor){
-    return JSX('body', null, Input({
-      cursor: cursor,
-      autofocus: true,
-      placeholder: 'Change me',
-      onSubmit: function(value){
-        document.body.appendChild(document.createTextNode(value))
-        cursor.update('')
-      },
-      onCancel: function(){ console.log('cancel') }
-    }))
-  })
-  app.atom.addListener(function(value){
-    localStorage.setItem('a', value)
-  })
+  const {App,JSX} = require('mana')
+  const Input = require('./')
+
+  const data = localStorage.getItem('a') || ''
+  const render = cursor =>
+    <Input cursor
+           autofocus={true}
+           placeholder='Change me'
+           onSubmit={value => {
+             document.body.appendChild(document.createTextNode(value))
+             cursor.update('')
+           }}
+           onCancel={() => console.log('cancel')}/>
+  const app = new App(data, render)
+  app.cursor.addListener(value => localStorage.setItem('a', value))
+  window.onload = () => app.mountIn(document.body)
 </script>
