@@ -1,18 +1,15 @@
 {
   "name": "text-input",
-  "version": "0.1.0",
+  "version": "0.0.0",
   "description": "A text-input component",
   "keywords": ["virtual-dom"],
   "dependencies": {
-    "mana": "jkroso/mana",
-    "babelify": "*"
+    "mana": "jkroso/mana"
   },
   "devDependencies": {
     "serve": "jkroso/serve"
   },
-  "browserify": {
-    "transform": [["babelify", {"jsxPragma": "JSX"}]]
-  },
+  "transpile": [["*.js", "!sourcegraph/babel->js"]],
   "repository": "git://github.com/jsiom/text-input.git",
   "author": "Jake Rosoman",
   "files": ["index.js"],
