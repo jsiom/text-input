@@ -6,6 +6,7 @@ const onKeydown = (e, node, dom) => {
 }
 
 const onKeyup = (e, node, dom) => {
+  if (e.which == 13/*enter*/ || e.which == 27/*esc*/) return
   const oldValue = node.params.value
   const newValue = dom.value
   if (oldValue == newValue) return
