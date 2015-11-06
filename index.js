@@ -1,4 +1,4 @@
-const {JSX} = require('mana')
+import {JSX} from 'mana'
 
 const onKeydown = (e, node, dom) => {
   if (e.which == 13/*enter*/) node.emit('submit', dom, dom.value)

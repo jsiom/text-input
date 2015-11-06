@@ -1,5 +1,4 @@
 <title>text-input example</title>
-<link rel="stylesheet" href="style.css"/>
 <style>
   input {
     font-size: 30px;
@@ -9,8 +8,8 @@
   }
 </style>
 <script>
-  const {App,JSX} = require('mana')
-  const Input = require('./')
+  import {App,JSX} from 'mana'
+  import Input from './'
 
   const data = localStorage.getItem('a') || ''
   const render = cursor =>
@@ -19,7 +18,7 @@
            placeholder='Change me'
            onSubmit={value => {
              document.body.appendChild(document.createTextNode(value))
-             cursor.update('')
+             cursor.value = ''
            }}
            onCancel={() => console.log('cancel')}/>
   const app = new App(data, render)
