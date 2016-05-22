@@ -9,7 +9,7 @@
   "devDependencies": {
     "serve": "jkroso/serve"
   },
-  "transpile": [["*.js", "!sourcegraph/babel->js"]],
+  "transpile": [["*.js", "!sourcegraph/babel->js", {"stage": 2}]],
   "repository": "git://github.com/jsiom/text-input.git",
   "author": "Jake Rosoman",
   "files": ["index.js"],
